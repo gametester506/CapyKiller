@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  background: black;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+#menu, #gameOverScreen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+canvas {
+  background: #222 url('../img/background.jpg') no-repeat center center;
+  background-size: cover;
+  border: 2px solid #fff;
+  display: block;
+  margin: auto;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00aaff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0077cc;
+}

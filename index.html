@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapyKiller</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="menu">
+    <h1>CapyKiller</h1>
+    <button onclick="startGame()">Jugar</button>
+    <p id="highScoreDisplay"></p>
+  </div>
+
+  <canvas id="gameCanvas" style="display:none;"></canvas>
+
+  <div id="gameOverScreen" style="display:none;">
+    <h2>GAME OVER</h2>
+    <p id="finalScore"></p>
+    <button onclick="location.reload()">Reiniciar</button>
+  </div> 
+
+  <script src="Game.js"></script>
+  <audio id="shootSound" src="audio/shoot1.mp3"></audio>
+  <audio id="explosionSound" src="audio/explosion.mp3"></audio>
+  <audio id="bgMusic" src="audio/music.mp3" loop></audio>
+  <audio id="explosionSound" src="audio/explosion.mp3"></audio>
+  
+
+</body>
+</html>
