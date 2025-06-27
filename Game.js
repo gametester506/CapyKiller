@@ -13,6 +13,8 @@ let paused = false;
 let gameStarted = false;
 
 const bgMusic = document.getElementById("bgMusic");
+const enemy1ExplosionSound = new Audio("audio/enemy2.mp3");
+const enemy2ExplosionSound = new Audio("audio/enemy1.mp3");
 
 const bgImg = new Image();
 bgImg.src = "img/background.jpg";
@@ -51,7 +53,7 @@ const player = {
 };
 
 class Enemy {
-  constructor(x, y, speed, health, image, message) {
+  constructor(x, y, speed, health, image, message, explosionSound) {
     this.x = x;
     this.y = y;
     this.width = 64;
@@ -60,6 +62,7 @@ class Enemy {
     this.health = health;
     this.image = image;
     this.message = message;
+    this.explosionSound = explosionSound;
     this.messageTimer = 120;
   }
   update() {
@@ -161,11 +164,16 @@ function spawnEnemy() {
   const y = Math.random() * (canvas.height - 64);
   const speed = 2 + speedMultiplier * 0.3;
   const health = score >= 100 ? 3 : 1;
-  const randomImage = enemyImages[Math.floor(Math.random() * enemyImages.length)];
-  const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+  const index = Math.floor(Math.random() * enemyImages.length);
+  const image = enemyImages[index];
+  const message = messages[Math.floor(Math.random() * messages.length)];
+
+  let explosionSound;
+  if (index === 0) explosionSound = enemy1ExplosionSound;
+  else if (index === 1) explosionSound = enemy2ExplosionSound;
 
   if (gameStarted) {
-    enemies.push(new Enemy(canvas.width, y, speed, health, randomImage, randomMessage));
+    enemies.push(new Enemy(canvas.width, y, speed, health, image, message, explosionSound));
     if (score % 15 === 0 && score > 0) {
       extraLives.push(new ExtraLife(canvas.width, Math.random() * (canvas.height - 32)));
     }
@@ -206,8 +214,7 @@ function updateGame() {
     e.draw();
     if (e.x < player.x + player.width && e.x + e.width > player.x && e.y < player.y + player.height && e.y + e.height > player.y) {
       explosions.push(new Explosion(player.x, player.y));
-      const explosionSound = document.getElementById("explosionSound");
-      if (explosionSound) explosionSound.play();
+	if (e.explosionSound) e.explosionSound.play();
       lives--;
       enemies.splice(i, 1);
       checkGameOver();
@@ -230,13 +237,12 @@ function updateGame() {
         bullets.splice(j, 1);
         e.health -= b.damage;
         if (e.health <= 0) {
-          score++;
-          if (score % 10 === 0) speedMultiplier++;
-          explosions.push(new Explosion(e.x, e.y));
-          const explosionSound = document.getElementById("explosionSound");
-          if (explosionSound) explosionSound.play();
-          enemies.splice(i, 1);
-        }
+			score++;
+			if (score % 10 === 0) speedMultiplier++;
+			if (e.explosionSound) e.explosionSound.play();
+			explosions.push(new Explosion(e.x, e.y));
+			enemies.splice(i, 1);
+		}
       }
     });
   });
