@@ -6,6 +6,13 @@ body {
   color: white;
   text-align: center;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
 
 #menu, #gameOverScreen {
   position: absolute;
@@ -19,12 +26,17 @@ body {
 }
 
 canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+/* canvas {
   background: #222 url('../img/background.jpg') no-repeat center center;
   background-size: cover;
   border: 2px solid #fff;
   display: block;
   margin: auto;
-}
+} */
 
 button {
   padding: 10px 20px;
