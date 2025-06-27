@@ -160,6 +160,14 @@ function shootBullet() {
   if (shootSound) shootSound.play();
 }
 
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("orientationchange", resizeCanvas);
+resizeCanvas(); // Ejecutar al inicio
+
 function spawnEnemy() {
   const y = Math.random() * (canvas.height - 64);
   const speed = 2 + speedMultiplier * 0.3;
