@@ -14,7 +14,8 @@ let gameStarted = false;
 
 const bgMusic = document.getElementById("bgMusic");
 const enemy1ExplosionSound = new Audio("audio/enemy2.mp3");
-const enemy2ExplosionSound = new Audio("audio/enemy1.mp3");
+const enemy2ExplosionSound = new Audio("audio/enemy1a.mp3");
+const enemy3ExplosionSound = new Audio("audio/enemy1b.mp3");
 
 const bgImg = new Image();
 bgImg.src = "img/background.jpg";
@@ -28,7 +29,7 @@ explosionImg.src = "img/explosion.png";
 const enemyImages = [
   "img/enemy1.png",
   "img/enemy2.png",
-  //"img/enemy3.png"
+  "img/enemy3.png"
 ].map(src => {
   const img = new Image();
   img.src = src;
@@ -154,12 +155,6 @@ class ExtraLife {
 
 let extraLives = [];
 
-function shootBullet() {
-  bullets.push(new Bullet(player.x + player.width, player.y + player.height / 2 - 2, 6 + speedMultiplier * 0.2, 1 + speedMultiplier * 0.1));
-  const shootSound = document.getElementById("shootSound");
-  if (shootSound) shootSound.play();
-}
-
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -167,6 +162,12 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 window.addEventListener("orientationchange", resizeCanvas);
 resizeCanvas(); // Ejecutar al inicio
+
+function shootBullet() {
+  bullets.push(new Bullet(player.x + player.width, player.y + player.height / 2 - 2, 6 + speedMultiplier * 0.2, 1 + speedMultiplier * 0.1));
+  const shootSound = document.getElementById("shootSound");
+  if (shootSound) shootSound.play();
+}
 
 function spawnEnemy() {
   const y = Math.random() * (canvas.height - 64);
@@ -177,11 +178,21 @@ function spawnEnemy() {
   const message = messages[Math.floor(Math.random() * messages.length)];
 
   let explosionSound;
-  if (index === 0) explosionSound = enemy1ExplosionSound;
-  else if (index === 1) explosionSound = enemy2ExplosionSound;
+  let type;
+
+  if (index === 0) {
+    explosionSound = enemy1ExplosionSound;
+    type = "enemy1";
+  } else if (index === 1) {
+    explosionSound = enemy2ExplosionSound;
+    type = "enemy2";
+  } else if (index === 2) {
+    explosionSound = enemy3ExplosionSound;
+    type = "enemy3";
+  }
 
   if (gameStarted) {
-    enemies.push(new Enemy(canvas.width, y, speed, health, image, message, explosionSound));
+    enemies.push(new Enemy(canvas.width, y, speed, health, image, message, explosionSound, type));
     if (score % 15 === 0 && score > 0) {
       extraLives.push(new ExtraLife(canvas.width, Math.random() * (canvas.height - 32)));
     }

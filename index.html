@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="CapyKiller - Juego meme divertido donde eliminas enemigos al estilo arcade." />
   <title>CapyKiller</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Audios pre-cargados -->
+  <audio id="shootSound" src="audio/shoot1.mp3"></audio>  
+  <audio id="bgMusic" src="audio/music.mp3" loop></audio>
+
+  <!-- Script diferido para esperar al DOM -->
+  <script src="Game.js" defer></script>
 </head>
 <body>
   <div id="menu">
@@ -13,20 +21,12 @@
     <p id="highScoreDisplay"></p>
   </div>
 
-  <canvas id="gameCanvas" style="display:none;"></canvas>
+  <canvas id="gameCanvas" style="display: none;"></canvas>
 
-  <div id="gameOverScreen" style="display:none;">
+  <div id="gameOverScreen" style="display: none;">
     <h2>GAME OVER</h2>
     <p id="finalScore"></p>
     <button onclick="location.reload()">Reiniciar</button>
-  </div> 
-
-  <script src="Game.js"></script>
-  <audio id="shootSound" src="audio/shoot1.mp3"></audio>
-  <audio id="explosionSound" src="audio/explosion.mp3"></audio>
-  <audio id="bgMusic" src="audio/music.mp3" loop></audio>
-  <audio id="explosionSound" src="audio/explosion.mp3"></audio>
-  
-
+  </div>
 </body>
 </html>
